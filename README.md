@@ -1,4 +1,7 @@
-# 📈 agushuju
+<div align="center">
+<img src="https://www.agushuju.com/logo.png" alt="agushuju logo" width="60" height="60" style="vertical-align: middle; margin-right: 15px;">
+<span style="vertical-align: middle; font-size: 35px;">Agushuju</span>
+</div>
 
 <div align="center">
 
@@ -41,10 +44,12 @@ pip install agushuju
 3. 复制您的API密钥
 
 > 💡 **密钥类型说明**：
+>
 > - **默认密钥**：用于在线调试，不可删除
 > - **自定义密钥**：可设置注释和有效期，便于管理
-> 
+>
 > 🆘 **遇到问题？** 加入QQ群 **224731242** 获取帮助！
+
 ### 基础使用
 
 ```python
@@ -124,10 +129,6 @@ area_stats = df['area'].value_counts().head(10)
 print("各地区股票数量：")
 print(area_stats)
 
-# 按行业统计
-industry_stats = df['industry'].value_counts().head(10)
-print("\n各行业股票数量：")
-print(industry_stats)
 ```
 
 ### 批量查询
@@ -143,13 +144,13 @@ while True:
         request={"limit": limit, "offset": offset},
         response=["stock_code", "stock_name"]
     )
-    
+  
     if len(batch) == 0:
         break
-        
+    
     all_stocks.append(batch)
     offset += limit
-    
+  
     print(f"已获取 {offset} 条记录...")
 
 # 合并所有数据
@@ -183,10 +184,10 @@ api = agushuju.api()  # 无需传入token
 
 ## 🔧 兼容性
 
-| Python版本 | 状态 | requests版本 | pandas版本 |
-|-----------|------|-------------|-----------|
-| Python 2.7 | ✅ 支持 | >= 2.20.0, < 3.0.0 | >= 0.24.0, < 1.0.0 |
-| Python 3.5+ | ✅ 支持 | >= 2.25.0 | >= 1.1.0 |
+| Python版本  | 状态    | requests版本       | pandas版本         |
+| ----------- | ------- | ------------------ | ------------------ |
+| Python 2.7  | ✅ 支持 | >= 2.20.0, < 3.0.0 | >= 0.24.0, < 1.0.0 |
+| Python 3.5+ | ✅ 支持 | >= 2.25.0          | >= 1.1.0           |
 
 ## 📞 支持与社区
 

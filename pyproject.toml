@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agushuju"
-version = "0.1.2"
+dynamic = ["version"]
 description = "爱股数据（别名：A股数据），一个集A股、期货与一体的量化交易数据服务平台。"
 readme = "README.md"
 authors = [
@@ -47,3 +47,6 @@ Homepage = "https://github.com/agukeji/agushuju"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "agushuju.__version__"}

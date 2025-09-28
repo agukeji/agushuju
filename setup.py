@@ -75,15 +75,41 @@ def get_version():
             for line in f:
                 if line.startswith('__version__'):
                     return line.split('=')[1].strip().strip('"\'')
-    return "0.1.2"
+    except (IOError, OSError):
+        pass
+    
+    # 如果无法读取版本号，抛出异常而不是返回硬编码版本
+    raise RuntimeError("Unable to find version string in %s" % version_file)
+
+# Get package description, author and keywords based on Python version
+def get_package_info():
+    python_version = sys.version_info[:2]
+    
+    if python_version < (3, 0):
+        # Python 2.7 - English version
+        return {
+            'description': "Agushuju - A comprehensive quantitative trading data service platform for A-shares and futures.",
+            'author': "Anhui Agu Technology Co., Ltd.",
+            'keywords': ["agushuju", "aigushuju", "agudata", "api", "sdk", "token", "quantitative trading", "financial data"]
+        }
+    else:
+        # Python 3+ - Chinese version
+        return {
+            'description': "爱股数据（别名：A股数据），一个集A股、期货与一体的量化交易数据服务平台。",
+            'author': "安徽爱股科技有限公司",
+            'keywords': ["agushuju", "爱股数据", "A股数据", "aigushuju", "agudata", "api", "sdk", "token"]
+        }
+
+# Get package info based on Python version
+package_info = get_package_info()
 
 setup(
     name="agushuju",
     version=get_version(),
-    description="爱股数据（别名：A股数据），一个集A股、期货与一体的量化交易数据服务平台。",
+    description=package_info['description'],
     long_description=read_readme(),
     # long_description_content_type="text/markdown",  # Not supported in Python 2.7
-    author="安徽爱股科技有限公司",
+    author=package_info['author'],
     author_email="jinguxun@qq.com",
     url="https://github.com/agukeji/agushuju",
     license="MIT",
@@ -111,6 +137,6 @@ setup(
         "Topic :: Office/Business :: Financial :: Investment",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    keywords=["agushuju", "爱股数据", "A股数据","aigushuju", "agudata", "api", "sdk", "token"],
+    keywords=package_info['keywords'],
     zip_safe=False,
 )

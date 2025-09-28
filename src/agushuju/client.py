@@ -9,8 +9,14 @@ except ImportError:
     # Python 2 fallback
     pass
 
-
-DEFAULT_BASE_URL = os.getenv("AGU_BASE_URL", "https://www.agushuju.com/api").rstrip("/")
+# Python 2/3 compatibility for default URL
+import sys
+if sys.version_info[0] == 2:
+    # For Python 2, use HTTP by default to avoid SSL issues
+    DEFAULT_BASE_URL = os.getenv("AGU_BASE_URL", "http://www.agushuju.com/api").rstrip("/")
+else:
+    # For Python 3, use HTTPS
+    DEFAULT_BASE_URL = os.getenv("AGU_BASE_URL", "https://www.agushuju.com/api").rstrip("/")
 
 
 class _AguProClient:
